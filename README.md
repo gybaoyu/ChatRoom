@@ -8,3 +8,4 @@
 
 暂时还没有接入electron，后续会用electron打包为一体(客户端后端+前端)
 
+![image-20250409151453735](./readme-img/image-20250409151453735.png)
