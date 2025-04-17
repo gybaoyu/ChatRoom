@@ -44,7 +44,7 @@ public class MessageReceiver implements Runnable{
             Message message = jsonToMessage(rawData);
             System.out.println(rawData);
             webSocketSession.sendMessage(new TextMessage(rawData));
-            if (message.getMessage().equals("Exit")) {
+            if (message.getMessage().equals("exit")) {
                 webSocketSession.close();
                 break;
             }
