@@ -63,6 +63,9 @@ public class ServerMessageService {
         for (User user : users) {
             if (!user.getName().equals(msg.getName())){
                 serverSocket.send(new DatagramPacket(jsonData.getBytes(), jsonData.getBytes().length, new InetSocketAddress(user.getAddress(), user.getPort())));
+            }else{
+                Message tmp = new Message("Server","您已离开聊天室",getTime());
+                if (msg.getMessage().equals("exit"))serverSocket.send(new DatagramPacket(messageToJson(tmp).getBytes(), messageToJson(tmp).getBytes().length, new InetSocketAddress(user.getAddress(), user.getPort())));
             }
         }
     }

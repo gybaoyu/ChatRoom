@@ -36,9 +36,6 @@ public class MessageSender {
     public String sendMessage(Message message){
         String jsonData = messageToJson(message);
         socket.send(new DatagramPacket(jsonData.getBytes(), jsonData.getBytes().length, InetAddress.getByName(serverHost), serverPort));
-        if (message.getMessage().equals("exit")) {
-            socket.close();
-        }
         return jsonData;
     }
 }
