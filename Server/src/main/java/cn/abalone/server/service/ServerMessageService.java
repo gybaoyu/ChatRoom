@@ -70,7 +70,8 @@ public class ServerMessageService {
     @SneakyThrows
     public void initServer() {
         System.out.println("服务器启动");
-        serverSocket = new DatagramSocket(53533);
+        serverSocket = new DatagramSocket(52069);
+        System.out.println(serverSocket.getLocalPort());
         while (true) {
             DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
             serverSocket.receive(packet);

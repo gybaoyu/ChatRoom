@@ -5,17 +5,21 @@ const messages = ref([]);
 const inputMessage = ref('');
 const socket = ref(null);
 let username = ref('');
+// 获取URL参数
 
+
+const wsPort = 8081; // 默认8081
 // 初始化WebSocket连接
 function initWebSocket() {
-  const socketInstance = new WebSocket('ws://localhost:8080/ws');
-
+  console.log(wsPort)
+  const socketInstance = new WebSocket(`ws://localhost:8081/ws`);
   socketInstance.onopen = () => {
-    console.log('WebSocket连接已建立 (端口8080)');
+    console.log('WebSocket连接已建立 (端口8081)');
   };
 
   socketInstance.onmessage = (event) => {
-    messages.value.push(event.data);
+    const data = JSON.parse(event.data);
+    messages.value.push(data);
     console.log('收到消息:', event.data);
   };
 
@@ -59,13 +63,14 @@ function register() {
   <div class="websocket-container">
     <div class="message-display">
       <div class="message-box">
+        <h3>{{wsPort}}</h3>
         <h3>消息列表:</h3>
         <div
             v-for="(msg, index) in messages"
             :key="index"
             class="message-item"
         >
-          {{ msg }}
+          [{{msg.msgDate}}]{{ msg.name }}: {{msg.message}}
         </div>
       </div>
     </div>
