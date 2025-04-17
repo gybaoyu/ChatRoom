@@ -18,6 +18,6 @@ public class Tools {
         return mapper.readValue(json,Message.class);
     }
     public static String getTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd HH:mm:ss"));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

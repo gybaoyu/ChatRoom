@@ -14,8 +14,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.abalone.server.tools.Tools.jsonToMessage;
-import static cn.abalone.server.tools.Tools.messageToJson;
+import static cn.abalone.server.tools.Tools.*;
 
 public class ServerMessageService {
     private final List<User> users = new ArrayList<>();
@@ -39,7 +38,9 @@ public class ServerMessageService {
     @SneakyThrows
     private void userRegisterSuccess(String name) {
         Message message = new Message("Server", name + "加入了聊天室");
+        message.setMsgDate(getTime());
         String jsonData = messageToJson(message);
+        System.out.println(jsonData);
         for (User user : users) {
             serverSocket.send(new DatagramPacket(jsonData.getBytes(), jsonData.getBytes().length, new InetSocketAddress(user.getAddress(), user.getPort())));
         }
@@ -70,7 +71,7 @@ public class ServerMessageService {
     @SneakyThrows
     public void initServer() {
         System.out.println("服务器启动");
-        serverSocket = new DatagramSocket(52069);
+        serverSocket = new DatagramSocket(6666);
         System.out.println(serverSocket.getLocalPort());
         while (true) {
             DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);

@@ -81,6 +81,14 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 可选：显式指定主类 -->
+                <configuration>
+                    <mainClass>cn.abalone.server.Server</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

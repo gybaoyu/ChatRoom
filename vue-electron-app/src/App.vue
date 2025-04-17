@@ -7,11 +7,8 @@ const socket = ref(null);
 let username = ref('');
 // 获取URL参数
 
-
-const wsPort = 8081; // 默认8081
 // 初始化WebSocket连接
 function initWebSocket() {
-  console.log(wsPort)
   const socketInstance = new WebSocket(`ws://localhost:8081/ws`);
   socketInstance.onopen = () => {
     console.log('WebSocket连接已建立 (端口8081)');
@@ -43,7 +40,7 @@ function sendMessage() {
   if (inputMessage.value.trim() && socket.value?.readyState === WebSocket.OPEN) {
     socket.value.send('{' +
         '"name": "' + username + '",' +
-        '"message": "' + inputMessage.value+'"}');
+        '"message": "' + inputMessage.value + '"}');
     inputMessage.value = '';
   }
 }
@@ -63,14 +60,18 @@ function register() {
   <div class="websocket-container">
     <div class="message-display">
       <div class="message-box">
-        <h3>{{wsPort}}</h3>
+        <!--        <h3>{{wsPort}}</h3>-->
         <h3>消息列表:</h3>
         <div
             v-for="(msg, index) in messages"
             :key="index"
             class="message-item"
+            :style="{
+              'text-align': 'left',
+              'background-color': msg.name === 'Server' ? 'gray' : msg.name === username ? 'rgba(135, 206, 250, 0.4)' : 'transparent'
+            }"
         >
-          [{{msg.msgDate}}]{{ msg.name }}: {{msg.message}}
+          [{{ msg.msgDate }}] {{ msg.name }}：{{ msg.message }}
         </div>
       </div>
     </div>
@@ -84,7 +85,7 @@ function register() {
       />
 
     </div>
-    <button @click="sendMessage" class="send-button">发送</button><br>
+    <button @click="sendMessage" class="send-button">发送</button>
     <button @click="register" class="send-button" v-if="username===''">注册用户</button>
   </div>
 </template>
